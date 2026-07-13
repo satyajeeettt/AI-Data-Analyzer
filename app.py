@@ -8,10 +8,39 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("🚀 DataPilot AI")
-st.caption("Your AI Copilot for Data Analysis")
+# Custom CSS
+st.markdown("""
+<style>
+.main {
+    padding-top: 1rem;
+}
+.metric-card {
+    background-color: #1E1E1E;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+}
+.footer {
+    text-align: center;
+    color: gray;
+    margin-top: 50px;
+}
+</style>
+""", unsafe_allow_html=True)
 
-st.sidebar.header("📂 Controls")
+# Sidebar
+st.sidebar.title("🚀 DataPilot AI")
+st.sidebar.markdown("### Your AI Copilot for Data Analysis")
+st.sidebar.markdown("---")
+
+page = st.sidebar.radio(
+    "Navigation",
+    ["Dashboard", "Insights"]
+)
+
+# Header
+st.title("🚀 DataPilot AI")
+st.caption("Transform your data into actionable insights")
 
 file = st.file_uploader(
     "Upload CSV or Excel File",
@@ -25,128 +54,211 @@ if file:
     else:
         df = pd.read_excel(file)
 
-    st.sidebar.success("✅ File Loaded Successfully")
+    rows = df.shape[0]
+    cols = df.shape[1]
+    missing = int(df.isnull().sum().sum())
 
-    col1, col2, col3 = st.columns(3)
+    quality_score = round(
+        ((rows * cols - missing) / (rows * cols)) * 100,
+        2
+    )
 
-    with col1:
-        st.metric("Rows", df.shape[0])
+    if page == "Dashboard":
 
-    with col2:
-        st.metric("Columns", df.shape[1])
+        col1, col2, col3, col4 = st.columns(4)
 
-    with col3:
-        st.metric("Missing Values", int(df.isnull().sum().sum()))
+        col1.metric("📄 Rows", rows)
+        col2.metric("📊 Columns", cols)
+        col3.metric("⚠ Missing Values", missing)
+        col4.metric("🏆 Data Quality", f"{quality_score}%")
 
-    st.subheader("📋 Dataset Preview")
-    st.dataframe(df, use_container_width=True)
+        st.markdown("---")
 
-    st.subheader("📊 Summary Statistics")
+        st.subheader("📋 Dataset Preview")
+        st.dataframe(df, use_container_width=True)
 
-    try:
-        st.dataframe(df.describe(), use_container_width=True)
-    except:
-        st.warning("No numeric columns available.")
+        st.subheader("📈 Summary Statistics")
 
-    st.subheader("🔍 Missing Values")
+        try:
+            st.dataframe(
+                df.describe(),
+                use_container_width=True
+            )
+        except:
+            st.info("No numeric columns found.")
 
-    missing_df = pd.DataFrame({
-        "Column": df.columns,
-        "Missing Count": df.isnull().sum().values
-    })
+        numeric_cols = df.select_dtypes(
+            include="number"
+        ).columns
 
-    st.dataframe(missing_df, use_container_width=True)
+        if len(numeric_cols) > 0:
 
-    numeric_cols = df.select_dtypes(include="number").columns
+            st.subheader("📊 Visualization Center")
 
-    if len(numeric_cols) > 0:
+            chart_type = st.selectbox(
+                "Select Chart",
+                [
+                    "Histogram",
+                    "Box Plot",
+                    "Scatter Plot",
+                    "Line Chart",
+                    "Pie Chart"
+                ]
+            )
 
-        st.subheader("📈 Interactive Visualization")
+            selected_col = st.selectbox(
+                "Select Column",
+                numeric_cols
+            )
 
-        chart_type = st.selectbox(
-            "Select Chart Type",
-            ["Histogram", "Box Plot"]
-        )
+            if chart_type == "Histogram":
+                fig = px.histogram(
+                    df,
+                    x=selected_col
+                )
 
-        selected_col = st.selectbox(
-            "Select Numeric Column",
-            numeric_cols
-        )
+            elif chart_type == "Box Plot":
+                fig = px.box(
+                    df,
+                    y=selected_col
+                )
 
-        if chart_type == "Histogram":
-            fig = px.histogram(df, x=selected_col)
-        else:
-            fig = px.box(df, y=selected_col)
+            elif chart_type == "Line Chart":
+                fig = px.line(
+                    df,
+                    y=selected_col
+                )
 
-        st.plotly_chart(fig, use_container_width=True)
+            elif chart_type == "Pie Chart":
 
-    if len(numeric_cols) > 1:
+                pie_data = (
+                    df[selected_col]
+                    .value_counts()
+                    .head(10)
+                    .reset_index()
+                )
 
-        st.subheader("🔥 Correlation Heatmap")
+                pie_data.columns = [
+                    selected_col,
+                    "Count"
+                ]
 
-        corr_matrix = df[numeric_cols].corr()
+                fig = px.pie(
+                    pie_data,
+                    names=selected_col,
+                    values="Count"
+                )
 
-        heatmap = px.imshow(
-            corr_matrix,
-            text_auto=True,
-            aspect="auto"
-        )
+            elif chart_type == "Scatter Plot":
 
-        st.plotly_chart(
-            heatmap,
-            use_container_width=True
-        )
+                second_col = st.selectbox(
+                    "Second Column",
+                    numeric_cols
+                )
 
-    st.subheader("🤖 AI Insights")
+                fig = px.scatter(
+                    df,
+                    x=selected_col,
+                    y=second_col
+                )
 
-    if st.button("Generate Insights"):
-
-        st.success("Analysis Completed")
-
-        st.write(
-            f"📌 Dataset contains {df.shape[0]} rows and {df.shape[1]} columns."
-        )
-
-        missing_count = int(df.isnull().sum().sum())
-
-        st.write(
-            f"📌 Total Missing Values: {missing_count}"
-        )
+            st.plotly_chart(
+                fig,
+                use_container_width=True
+            )
 
         if len(numeric_cols) > 1:
 
-            corr = df[numeric_cols].corr()
+            st.subheader("🔥 Correlation Heatmap")
 
-            strongest_corr = (
-                corr.unstack()
-                .sort_values(ascending=False)
+            corr_matrix = df[numeric_cols].corr()
+
+            heatmap = px.imshow(
+                corr_matrix,
+                text_auto=True,
+                aspect="auto"
             )
 
-            strongest_corr = strongest_corr[
-                strongest_corr < 1
-            ]
+            st.plotly_chart(
+                heatmap,
+                use_container_width=True
+            )
 
-            if len(strongest_corr) > 0:
+    if page == "Insights":
 
-                col_a = strongest_corr.index[0][0]
-                col_b = strongest_corr.index[0][1]
+        st.subheader("🤖 DataPilot Insights")
 
-                st.write(
-                    f"📌 Strongest relationship found between {col_a} and {col_b}."
-                )
+        st.success("Analysis Generated Successfully")
 
-        st.write("### 💡 Recommendations")
+        st.write(
+            f"Dataset contains **{rows} rows** and **{cols} columns**."
+        )
 
-        st.write("✅ Clean missing values before advanced analysis.")
-        st.write("✅ Focus on highly correlated features.")
-        st.write("✅ Analyze trends and outliers.")
-        st.write("✅ Collect more data for better predictions.")
+        st.write(
+            f"Total missing values detected: **{missing}**"
+        )
 
-    csv = df.to_csv(index=False).encode("utf-8")
+        st.write(
+            f"Data quality score: **{quality_score}%**"
+        )
+
+        if quality_score > 95:
+            st.success(
+                "Excellent data quality."
+            )
+
+        elif quality_score > 80:
+            st.warning(
+                "Good quality but cleaning recommended."
+            )
+
+        else:
+            st.error(
+                "Significant data cleaning required."
+            )
+
+        st.markdown("### 💡 Recommendations")
+
+        st.write(
+            "✅ Remove missing values before modeling."
+        )
+
+        st.write(
+            "✅ Focus on highly correlated features."
+        )
+
+        st.write(
+            "✅ Investigate outliers."
+        )
+
+        st.write(
+            "✅ Build dashboards for business monitoring."
+        )
+
+    csv = df.to_csv(
+        index=False
+    ).encode("utf-8")
 
     st.download_button(
-        label="📥 Download Dataset",
-        data=csv,
-        file_name="cleaned_data.csv",
-        mime="text/csv"
+        "📥 Download Dataset",
+        csv,
+        "cleaned_data.csv",
+        "text/csv"
     )
+
+else:
+
+    st.info(
+        "Upload a CSV or Excel file to begin analysis."
+    )
+
+st.markdown("---")
+
+st.markdown(
+    """
+    <div class='footer'>
+    🚀 DataPilot AI | Built by Satyjeet
+    </div>
+    """,
+    unsafe_allow_html=True
+)
