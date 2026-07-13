@@ -37,10 +37,101 @@ page = st.sidebar.radio(
     "Navigation",
     ["Dashboard", "Insights"]
 )
+ st.markdown("""
+<style>
 
-# Header
-st.title("🚀 DataPilot AI")
-st.caption("Transform your data into actionable insights")
+.hero {
+    padding: 80px 40px;
+    border-radius: 25px;
+    text-align: center;
+    background: linear-gradient(
+        135deg,
+        #020617,
+        #0f172a,
+        #1e293b
+    );
+    border: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 30px;
+}
+
+.hero-title {
+    font-size: 70px;
+    font-weight: 900;
+    background: linear-gradient(
+        90deg,
+        #60a5fa,
+        #818cf8,
+        #38bdf8
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-sub {
+    color: #cbd5e1;
+    font-size: 24px;
+}
+
+.feature-box {
+    background: rgba(255,255,255,0.03);
+    border-radius: 18px;
+    padding: 25px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<div class="hero">
+
+<div class="hero-title">
+⚡ DataPilot AI
+</div>
+
+<div class="hero-sub">
+Professional AI Analytics Platform
+</div>
+
+<br>
+
+<p style="font-size:18px;color:#94a3b8;">
+Upload CSV & Excel files, visualize patterns,
+discover insights and transform raw data into decisions.
+</p>
+
+</div>
+""", unsafe_allow_html=True)
+
+c1, c2, c3 = st.columns(3)
+
+with c1:
+    st.markdown("""
+    <div class="feature-box">
+    <h3>📊 Analytics</h3>
+    Interactive dashboards & reports
+    </div>
+    """, unsafe_allow_html=True)
+
+with c2:
+    st.markdown("""
+    <div class="feature-box">
+    <h3>⚡ Fast</h3>
+    Analyze datasets within seconds
+    </div>
+    """, unsafe_allow_html=True)
+
+with c3:
+    st.markdown("""
+    <div class="feature-box">
+    <h3>🧠 Insights</h3>
+    AI-powered business intelligence
+    </div>
+    """, unsafe_allow_html=True)
+
+st.markdown("<br>", unsafe_allow_html=True)
+
 
 file = st.file_uploader(
     "Upload CSV or Excel File",
