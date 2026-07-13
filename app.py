@@ -27,16 +27,52 @@ st.markdown("""
 }
 </style>
 """, unsafe_allow_html=True)
+# =========================
+# PREMIUM SIDEBAR
+# =========================
 
-# Sidebar
-st.sidebar.title("🚀 DataPilot AI")
-st.sidebar.markdown("### Your AI Copilot for Data Analysis")
-st.sidebar.markdown("---")
+st.sidebar.markdown("""
+# 🚀 DataPilot AI
+
+### Enterprise Analytics Platform
+
+Transform raw data into actionable insights.
+
+---
+""")
 
 page = st.sidebar.radio(
-    "Navigation",
-    ["Dashboard", "Insights"]
+    "📍 Navigation",
+    [
+        "Dashboard",
+        "Insights"
+    ]
 )
+
+st.sidebar.markdown("---")
+
+st.sidebar.markdown("""
+### ⚡ Features
+
+📊 Smart Analytics
+
+📈 Interactive Charts
+
+🔥 Correlation Heatmaps
+
+🧠 AI-Powered Insights
+
+📥 Dataset Export
+""")
+
+st.sidebar.markdown("---")
+
+st.sidebar.success("System Status: Online")
+
+st.sidebar.info(
+    "Upload a CSV or Excel file to begin analysis."
+)
+
 st.markdown("""
 <style>
 
@@ -474,11 +510,42 @@ else:
 
 st.markdown("---")
 
-st.markdown(
-    """
-    <div class='footer'>
-    🚀 DataPilot AI | Built by Satyjeet
-    </div>
-    """,
-    unsafe_allow_html=True
+# Premium Sidebar
+
+st.sidebar.markdown("""
+# 🚀 DataPilot AI
+
+### Enterprise Analytics Platform
+
+Transform raw data into
+actionable business insights.
+
+---
+""")
+
+page = st.sidebar.radio(
+    "📍 Navigation",
+    ["Dashboard", "Insights"]
+)
+
+st.sidebar.markdown("---")
+
+st.sidebar.markdown("""
+### ⚡ Features
+
+📊 Smart Analytics
+
+📈 Interactive Charts
+
+🔥 Correlation Heatmaps
+
+🧠 AI-Powered Insights
+
+📥 Dataset Export
+""")
+
+st.sidebar.markdown("---")
+
+st.sidebar.info(
+    "Upload a CSV or Excel file to begin analysis."
 )
