@@ -37,7 +37,7 @@ page = st.sidebar.radio(
     "Navigation",
     ["Dashboard", "Insights"]
 )
- st.markdown("""
+st.markdown("""
 <style>
 
 .hero {
@@ -107,7 +107,7 @@ discover insights and transform raw data into decisions.
 c1, c2, c3 = st.columns(3)
 
 with c1:
-    st.markdown("""
+   st.markdown("""
     <div class="feature-box">
     <h3>📊 Analytics</h3>
     Interactive dashboards & reports
@@ -115,7 +115,7 @@ with c1:
     """, unsafe_allow_html=True)
 
 with c2:
-    st.markdown("""
+   st.markdown("""
     <div class="feature-box">
     <h3>⚡ Fast</h3>
     Analyze datasets within seconds
@@ -123,7 +123,7 @@ with c2:
     """, unsafe_allow_html=True)
 
 with c3:
-    st.markdown("""
+   st.markdown("""
     <div class="feature-box">
     <h3>🧠 Insights</h3>
     AI-powered business intelligence
@@ -131,8 +131,137 @@ with c3:
     """, unsafe_allow_html=True)
 
 st.markdown("<br>", unsafe_allow_html=True)
+st.markdown("""
+<style>
 
+.hero {
+    padding: 80px 40px;
+    border-radius: 25px;
+    text-align: center;
+    background: linear-gradient(
+        135deg,
+        #020617,
+        #0f172a,
+        #1e293b
+    );
+    border: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 30px;
+}
 
+.hero-title {
+    font-size: 70px;
+    font-weight: 900;
+    background: linear-gradient(
+        90deg,
+        #60a5fa,
+        #818cf8,
+        #38bdf8
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-sub {
+    color: #cbd5e1;
+    font-size: 24px;
+}
+
+.feature-box {
+    background: rgba(255,255,255,0.03);
+    border-radius: 18px;
+    padding: 25px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<div class="hero">
+
+<div class="hero-title">
+⚡ DataPilot AI
+</div>
+
+<div class="hero-sub">
+Professional AI Analytics Platform
+</div>
+
+<br>
+
+<p style="font-size:18px;color:#94a3b8;">
+Upload CSV & Excel files, visualize patterns,
+discover insights and transform raw data into decisions.
+</p>
+
+</div>
+""", unsafe_allow_html=True)
+
+c1, c2, c3 = st.columns(3)
+
+with c1:
+   st.markdown("""
+    <div class="feature-box">
+    <h3>📊 Analytics</h3>
+    Interactive dashboards & reports
+    </div>
+    """, unsafe_allow_html=True)
+
+with c2:
+   st.markdown("""
+    <div class="feature-box">
+    <h3>⚡ Fast</h3>
+    Analyze datasets within seconds
+    </div>
+    """, unsafe_allow_html=True)
+
+with c3:
+   st.markdown("""
+    <div class="feature-box">
+    <h3>🧠 Insights</h3>
+    AI-powered business intelligence
+    </div>
+    """, unsafe_allow_html=True)
+
+st.markdown("<br>", unsafe_allow_html=True)
+st.markdown("""
+<div style="
+padding:50px;
+border-radius:20px;
+text-align:center;
+background:linear-gradient(135deg,#0f172a,#1e293b);
+margin-bottom:20px;
+">
+<h1 style="
+font-size:60px;
+font-weight:bold;
+color:white;
+">
+🚀 DataPilot AI
+</h1>
+
+<h3 style="color:#cbd5e1;">
+Professional AI-Powered Analytics Platform
+</h3>
+
+<p style="color:#94a3b8;font-size:18px;">
+Upload CSV & Excel files, generate visualizations,
+analyze trends and uncover business insights instantly.
+</p>
+</div>
+""", unsafe_allow_html=True)
+
+c1, c2, c3 = st.columns(3)
+
+with c1:
+    st.info("📊 Smart Analytics")
+
+with c2:
+    st.info("⚡ Lightning Fast")
+
+with c3:
+    st.info("🧠 AI Insights")
 file = st.file_uploader(
     "Upload CSV or Excel File",
     type=["csv", "xlsx"]
