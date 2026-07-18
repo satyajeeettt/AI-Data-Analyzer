@@ -930,4 +930,116 @@ else:
         customer_care_page()
 
     st.markdown("---")
-    st.markdown('<div class="footer">Built with ⚡ using Streamlit — DataPilot AI</div>', unsafe_allow_html=True)
+    st.markdown('<div class="footer">Built with Love For Users,ANYWHERE:ANYTIME:FREE OF COST — DataPilot AI</div>', unsafe_allow_html=True)
+    st.markdown('<div class="footer">© 2026 DataPilot AI. All rights reserved.</div>', unsafe_allow_html=True)  
+    st.markdown('<div class="footer">Version 1.0.0</div>', unsafe_allow_html=True)      
+#=========================================================
+# ADDITIONAL INFORMATION
+#=========================================================
+    st.markdown("""
+<style>
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+.feature-card {
+    background: linear-gradient(
+        145deg,
+        rgba(20,25,40,0.95),
+        rgba(10,15,30,0.95)
+    );
+    border: 1px solid rgba(120,120,255,0.15);
+    border-radius: 18px;
+    padding: 24px;
+    transition: all .3s ease;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+}
+
+.feature-card:hover {
+    transform: translateY(-6px);
+    border-color: #7c5cff;
+    box-shadow: 0 12px 35px rgba(124,92,255,0.25);
+}
+
+.feature-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(124,92,255,0.12);
+    font-size: 28px;
+    margin-bottom: 18px;
+}
+
+.feature-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.feature-desc {
+    color: #B0B8D1;
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+</style>
+
+<div class="feature-grid">
+
+<div class="feature-card">
+<div class="feature-icon">🔒</div>
+<div class="feature-title">Secure by Design</div>
+<div class="feature-desc">
+Enterprise-grade security with encrypted processing and privacy-first architecture.
+</div>
+</div>
+
+<div class="feature-card">
+<div class="feature-icon">⚡</div>
+<div class="feature-title">AI-Powered Insights</div>
+<div class="feature-desc">
+Generate intelligent insights, trends, and recommendations from your datasets.
+</div>
+</div>
+
+<div class="feature-card">
+<div class="feature-icon">📊</div>
+<div class="feature-title">Smart Analytics</div>
+<div class="feature-desc">
+Interactive dashboards and advanced visualizations for data-driven decisions.
+</div>
+</div>
+
+<div class="feature-card">
+<div class="feature-icon">☁️</div>
+<div class="feature-title">Reliable & Scalable</div>
+<div class="feature-desc">
+Built for performance and scalability, handling datasets of any size.
+</div>
+</div>
+
+</div>
+""", unsafe_allow_html=True)
+st.markdown("""
+<h2 style='text-align:center;
+font-size:2.4rem;
+font-weight:800;
+margin-bottom:10px;
+background:linear-gradient(90deg,#7c5cff,#00d4ff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;'>
+Why Choose DataPilot AI?
+</h2>
+
+<p style='text-align:center;color:#9ca3af;margin-bottom:40px;'>
+Enterprise-grade AI analytics platform built for modern data teams.
+</p>
+""", unsafe_allow_html=True)
